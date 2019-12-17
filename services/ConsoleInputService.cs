@@ -58,6 +58,15 @@ namespace AtmDemo.services
 
         #region Private Methods
 
+        /*
+         *  Builds the input message Command and argument(s).
+         */
+        /// <summary>
+        /// Builds the input message Command and argument(s).
+        /// </summary>
+        /// <param name="inputMessage"></param>
+        /// <param name="inputStrings"></param>
+        /// <returns>AtmInputMessage object.</returns>
         private AtmInputMessage BuildInputMessage(
             AtmInputMessage inputMessage,
             List<string> inputStrings)
@@ -68,6 +77,14 @@ namespace AtmDemo.services
             return inputMessage;
         }
 
+        /*
+         *  Gets the Command int for the inputMessage.
+         */
+        /// <summary>
+        /// Gets the Command int for the inputMessage.
+        /// </summary>
+        /// <param name="inputStrings"></param>
+        /// <returns>Command Int.</returns>
         private int GetCommand(List<string> inputStrings)
         {
             int command;
@@ -99,6 +116,15 @@ namespace AtmDemo.services
             return command;
         }
 
+        /*
+         *  Gets Withdrawal or Inventory argument(s) depending on Command.
+         */
+        /// <summary>
+        /// Gets Withdrawal or Inventory argument(s) depending on Command.
+        /// </summary>
+        /// <param name="inputMessage"></param>
+        /// <param name="inputStrings"></param>
+        /// <returns></returns>
         private AtmInputMessage GetArguments(
             AtmInputMessage inputMessage,
              List<string> inputStrings)

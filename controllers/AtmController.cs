@@ -199,28 +199,30 @@ namespace AtmDemo.services
         /// </summary>
         /// <param name="atm"><c>atm</c> is the Atm object.</param>
         /// <param name="amount"><c>amount</c> is the amount to be withdrawn.</param>
+        /// <returns>Atm object.</returns>
         /// <seealso cref="Restock(out Atm)"/>
         /// <seealso cref="Inventory(Atm, List{int})"/>
+        /// <seealso cref="Possibilities(int[], int[], int[], int, int)"/>
         public Atm Withdraw(Atm atm, int amount)
         {
             //  Validate arguments.
-            if (atm == null || amount < 1)
+            if (atm == null || amount < 1 || amount > AtmConstants.MAX_WITHDRAWAL_AMOUNT)
             {
                 //  Display withdrawal failure message on invalid input.
-                _displayService.DisplayWithdrawalFailure();
+                _displayService.DisplayInvalidArgumentMessage();
 
                 //  Return to exit method.
                 return atm;
             }
 
-            //  Calculate all possibilities.
+            //  Create temporary vault value lists.
             var vaultKeys = new List<int>(atm.Denominations);
             var vaultValues = new List<int>(atm.Inventory);
 
-            //  Clear the possiblity list.
+            //  Clear the possibilities list.
             _possibilities = new List<int[]>();
 
-            //  Calculate change possibility int arrays and save to _possibilities global.
+            //  Calculate change possibility int arrays and save to possibilities list.
             Possibilities(
                 vaultKeys.ToArray(),
                 vaultValues.ToArray(),
@@ -275,7 +277,9 @@ namespace AtmDemo.services
         /// <param name="possibility"></param>
         /// <param name="amount">Change amount desired.</param>
         /// <param name="index">index</param>
-        /// <returns></returns>
+        /// <returns>Void.</returns>
+        /// <seealso cref="Withdraw(Atm, int)"/>
+        /// <seealso cref="GetPossibilityTotal(int[], int[])"/>
         private void Possibilities(
             int[] vaultKeys,
             int[] vaultValues,
@@ -321,7 +325,8 @@ namespace AtmDemo.services
         /// </summary>
         /// <param name="vaultKeys">VaultKey int array.</param>
         /// <param name="possibility">Possibility values int array.</param>
-        /// <returns></returns>
+        /// <returns>Total amount of the possibliity <c>int</c></returns>
+        /// <seealso cref="Possibilities(int[], int[], int[], int, int)"/>
         private int GetPossibilityTotal(int[] vaultKeys, int[] possibility)
         {
             //  Instantiate total int.

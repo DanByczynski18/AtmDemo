@@ -295,8 +295,10 @@
             </summary>
             <param name="atm"><c>atm</c> is the Atm object.</param>
             <param name="amount"><c>amount</c> is the amount to be withdrawn.</param>
+            <returns>Atm object.</returns>
             <seealso cref="M:AtmDemo.services.AtmController.Restock(AtmDemo.Atm@)"/>
             <seealso cref="M:AtmDemo.services.AtmController.Inventory(AtmDemo.Atm,System.Collections.Generic.List{System.Int32})"/>
+            <seealso cref="M:AtmDemo.services.AtmController.Possibilities(System.Int32[],System.Int32[],System.Int32[],System.Int32,System.Int32)"/>
         </member>
         <member name="M:AtmDemo.services.AtmController.Possibilities(System.Int32[],System.Int32[],System.Int32[],System.Int32,System.Int32)">
             <summary>
@@ -308,7 +310,9 @@
             <param name="possibility"></param>
             <param name="amount">Change amount desired.</param>
             <param name="index">index</param>
-            <returns></returns>
+            <returns>Void.</returns>
+            <seealso cref="M:AtmDemo.services.AtmController.Withdraw(AtmDemo.Atm,System.Int32)"/>
+            <seealso cref="M:AtmDemo.services.AtmController.GetPossibilityTotal(System.Int32[],System.Int32[])"/>
         </member>
         <member name="M:AtmDemo.services.AtmController.GetPossibilityTotal(System.Int32[],System.Int32[])">
             <summary>
@@ -316,7 +320,8 @@
             </summary>
             <param name="vaultKeys">VaultKey int array.</param>
             <param name="possibility">Possibility values int array.</param>
-            <returns></returns>
+            <returns>Total amount of the possibliity <c>int</c></returns>
+            <seealso cref="M:AtmDemo.services.AtmController.Possibilities(System.Int32[],System.Int32[],System.Int32[],System.Int32,System.Int32)"/>
         </member>
         <member name="T:AtmDemo.services.ConsoleDisplayService">
             <summary>
@@ -448,6 +453,29 @@
                </example>
             </summary>
             <returns>Returns an AtmInputMessage object.</returns>
+        </member>
+        <member name="M:AtmDemo.services.ConsoleInputService.BuildInputMessage(AtmDemo.AtmInputMessage,System.Collections.Generic.List{System.String})">
+            <summary>
+            Builds the input message Command and argument(s).
+            </summary>
+            <param name="inputMessage"></param>
+            <param name="inputStrings"></param>
+            <returns>AtmInputMessage object.</returns>
+        </member>
+        <member name="M:AtmDemo.services.ConsoleInputService.GetCommand(System.Collections.Generic.List{System.String})">
+            <summary>
+            Gets the Command int for the inputMessage.
+            </summary>
+            <param name="inputStrings"></param>
+            <returns>Command Int.</returns>
+        </member>
+        <member name="M:AtmDemo.services.ConsoleInputService.GetArguments(AtmDemo.AtmInputMessage,System.Collections.Generic.List{System.String})">
+            <summary>
+            Gets Withdrawal or Inventory argument(s) depending on Command.
+            </summary>
+            <param name="inputMessage"></param>
+            <param name="inputStrings"></param>
+            <returns></returns>
         </member>
         <member name="M:AtmDemo.services.IDisplayService.DisplayBalanceLine(System.Int32,System.Int32)">
             <summary>
@@ -648,13 +676,61 @@
             <seealso cref="M:AtmDemo.Atm.GetValue(System.Int32)"/>
             <seealso cref="M:AtmDemo.Atm.SetValue(System.Int32,System.Int32)"/>
         </member>
+        <member name="M:AtmDemo.AtmInputMessage.#ctor">
+            <summary>
+            Initializes a new instance of the
+            <see cref="M:AtmDemo.AtmInputMessage.#ctor"/> class.
+            </summary>
+        </member>
+        <member name="P:AtmDemo.AtmInputMessage.Command">
+            <summary>
+            Command int controls program operations.
+            </summary>
+        </member>
+        <member name="P:AtmDemo.AtmInputMessage.WithdrawalAmount">
+            <summary>
+            WithdrawalAmount int stores the amount to be withdrawn from the atm.
+            </summary>
+        </member>
+        <member name="P:AtmDemo.AtmInputMessage.CountRequests">
+            <summary>
+            Count Requests holds a number of inventory requests.
+            </summary>
+        </member>
         <member name="T:AtmDemo.Program">
             <summary>
             The main <c>Program</c> class.
             Instantiates all dependencies and runs the program.
             </summary>
             <remarks>
-            <para></para>
+            <para>Author: Daniel J. Byczynski - 2019</para>
+            <para>
+                  You are to write a cash machine (ATM) application. The cash machine is pre-stocked with the
+                following denominations:
+                    • $100 - 10 Bills
+                    • $50 - 10 Bills
+                    • $20 - 10 Bills
+                    • $10 - 10 Bills
+                    • $5 - 10 Bills
+                    • $1 - 10 Bills
+            </para>
+            <para>
+                  Your application should take input from the standard input stream and support the following
+                commands:
+                    • R - Restocks the cash machine to the original pre-stock levels defined above
+                    • W&lt;dollar amount&gt; - Withdraws that amount from the cash machine(e.g. &quot; W $145&quot;)
+                    • I&lt;denominations&gt; - Displays the number of bills in that denomination present in the cash machine(e.g.I $20 $10 $1)
+                    • Q - Quits the application
+            </para>
+            <para>
+                  The withdrawals from the cash machine should dispense cash in the most efficient manner
+                possible, with the least amount of bills.After a withdrawal, the program should display success
+                or failure and the remaining balance in the cash machine (sample output below). For an
+                inquiry, the program should display the number of bills in the denominations specified(sample
+                output below). After a restock, the program should display the balance in the cash machine
+                (same as after a withdrawal). If the input is not understood, &quot;Invalid Command&quot; should be
+                displayed.No additional messages, prompts or errors should be displayed.
+            </para>
             </remarks>
         </member>
     </members>
