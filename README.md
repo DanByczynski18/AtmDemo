@@ -111,15 +111,3 @@ $1 - 10
 &gt; K
 
 Failure: Invalid Command
-
-
-You may use the language/technology of your choice to implement the solution. You can use
-the following as suggestions to implement your solution.
-
- For front end/UI developers, you can write the application in a web page, for example,
-single page application (SPA).
-
- For back end developers, you can write the application as a console application or any
-other user interface you are comfortable with.
-Providing unit tests is encouraged, but not required. No external files or databases are
-required (i.e. the initial cash machine amount and restock levels can be hard-coded).
